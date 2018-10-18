@@ -53,7 +53,7 @@ export class SearchComponent implements OnInit {
     this._valueId = value;
     this.api
       .getLaunches$()
-      .pipe(map(launches => {
+      .subscribe(launches => {
         const launchesFilter: Launch[] = launches.filter((launch: Launch) =>
           {
             let valido = false;
@@ -74,7 +74,7 @@ export class SearchComponent implements OnInit {
           }
         );
         this._launches = launchesFilter;
-      }));
+      });
   }
 
 }

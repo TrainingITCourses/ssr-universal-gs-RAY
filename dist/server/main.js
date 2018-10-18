@@ -93,7 +93,7 @@
  * tslint:disable
  */ 
 Object.defineProperty(exports, "__esModule", { value: true });
-var styles = ["[_nghost-%COMP%] {\n    height: 100%;\n}"];
+var styles = ["[_nghost-%COMP%] {\r\n    height: 100%;\r\n}"];
 exports.styles = styles;
 
 
@@ -248,7 +248,7 @@ exports.AppServerModule = AppServerModule;
  * tslint:disable
  */ 
 Object.defineProperty(exports, "__esModule", { value: true });
-var styles = ["[app-cols][_ngcontent-%COMP%] {\n  width: 50%;\n  max-width: 50%;\n  min-width: 50%;\n  height: 24px;\n\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n\n[app-cols][_ngcontent-%COMP%]::before {\n  content: '* '\n}\n\n[app-container][_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  max-height: 100%;\n  overflow: auto;\n  padding: 0px 12px;\n}"];
+var styles = ["[app-cols][_ngcontent-%COMP%] {\r\n  width: 50%;\r\n  max-width: 50%;\r\n  min-width: 50%;\r\n  height: 24px;\r\n\r\n  white-space: nowrap;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n}\r\n\r\n[app-cols][_ngcontent-%COMP%]::before {\r\n  content: '* '\r\n}\r\n\r\n[app-container][_ngcontent-%COMP%] {\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  max-height: 100%;\r\n  overflow: auto;\r\n  padding: 0px 12px;\r\n}"];
 exports.styles = styles;
 
 
@@ -332,7 +332,7 @@ exports.LaunchesComponent = LaunchesComponent;
  * tslint:disable
  */ 
 Object.defineProperty(exports, "__esModule", { value: true });
-var styles = ["[app-todo][_ngcontent-%COMP%] {\n  height: 100%;\n  overflow: hidden;\n  background-color: #27c301bd;\n  color: #025f1b;\n}\n\n[app-cabecera][_ngcontent-%COMP%] {\n  height: 120px;\n  padding: 0px 12px;\n  box-shadow: 1px 6px 18px 0px #025f1b;\n}\n\n[app-lanzamientos][_ngcontent-%COMP%] {\n  height: calc(100% - 200px);\n  background-color: white;\n  color: #025f1b;\n  margin-top: 8px;\n  padding-top: 4px;\n  margin-bottom: -12px;\n}\n\n[app-pie][_ngcontent-%COMP%] {\n  height: 64px;\n  box-shadow: 0px -5px 18px 0px #025f1b;\n}\n\napp-results-counter[_ngcontent-%COMP%] {\n  align-content: center;\n}"];
+var styles = ["[app-todo][_ngcontent-%COMP%] {\r\n  height: 100%;\r\n  overflow: hidden;\r\n  background-color: #27c301bd;\r\n  color: #025f1b;\r\n}\r\n\r\n[app-cabecera][_ngcontent-%COMP%] {\r\n  height: 120px;\r\n  padding: 0px 12px;\r\n  box-shadow: 1px 6px 18px 0px #025f1b;\r\n}\r\n\r\n[app-lanzamientos][_ngcontent-%COMP%] {\r\n  height: calc(100% - 200px);\r\n  background-color: white;\r\n  color: #025f1b;\r\n  margin-top: 8px;\r\n  padding-top: 4px;\r\n  margin-bottom: -12px;\r\n}\r\n\r\n[app-pie][_ngcontent-%COMP%] {\r\n  height: 64px;\r\n  box-shadow: 0px -5px 18px 0px #025f1b;\r\n}\r\n\r\napp-results-counter[_ngcontent-%COMP%] {\r\n  align-content: center;\r\n}"];
 exports.styles = styles;
 
 
@@ -396,6 +396,7 @@ exports.SearchComponentNgFactory = SearchComponentNgFactory;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var models_1 = __webpack_require__(/*! ./../services/models */ "./src/app/services/models.ts");
 var core_1 = __webpack_require__(/*! @angular/core */ "@angular/core");
 var api_service_1 = __webpack_require__(/*! ../services/api.service */ "./src/app/services/api.service.ts");
 var SearchComponent = /** @class */ (function () {
@@ -407,19 +408,19 @@ var SearchComponent = /** @class */ (function () {
             _this._criteria = criteria;
             _this._launches = [];
             switch (criteria) {
-                case 'Agencia':
+                case models_1.eCriteria.Agencia:
                     _this.api
-                        .getAgencies()
+                        .getAgencies$()
                         .subscribe(function (res) { return _this._data = res; });
                     break;
-                case 'Estado':
+                case models_1.eCriteria.Estado:
                     _this.api
-                        .getTypesStatus()
+                        .getTypesStatus$()
                         .subscribe(function (res) { return _this._data = res; });
                     break;
-                case 'Tipo':
+                case models_1.eCriteria.Tipo:
                     _this.api
-                        .getTypesMissions()
+                        .getTypesMissions$()
                         .subscribe(function (res) { return _this._data = res; });
                     break;
                 default:
@@ -431,8 +432,27 @@ var SearchComponent = /** @class */ (function () {
             console.log('onChangeValue: ' + value);
             _this._valueId = value;
             _this.api
-                .getLaunches(_this._criteria, _this._valueId)
-                .subscribe(function (res) { return _this._launches = res; });
+                .getLaunches$()
+                .subscribe(function (launches) {
+                var launchesFilter = launches.filter(function (launch) {
+                    var valido = false;
+                    if (_this._valueId > 0) {
+                        switch (_this._criteria) {
+                            case models_1.eCriteria.Agencia:
+                                valido = launch.agencie === _this._valueId;
+                                break;
+                            case models_1.eCriteria.Estado:
+                                valido = launch.status === _this._valueId;
+                                break;
+                            case models_1.eCriteria.Tipo:
+                                valido = launch.typeMission === _this._valueId;
+                                break;
+                        }
+                    }
+                    return valido;
+                });
+                _this._launches = launchesFilter;
+            });
         };
     }
     SearchComponent.prototype.ngOnInit = function () { };
@@ -454,55 +474,78 @@ exports.SearchComponent = SearchComponent;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var http_1 = __webpack_require__(/*! @angular/common/http */ "@angular/common/http");
+var rxjs_1 = __webpack_require__(/*! rxjs */ "rxjs");
 var operators_1 = __webpack_require__(/*! rxjs/operators */ "rxjs/operators");
+var i0 = __webpack_require__(/*! @angular/core */ "@angular/core");
+var i1 = __webpack_require__(/*! @angular/common/http */ "@angular/common/http");
 var ApiService = /** @class */ (function () {
     function ApiService(httpClient) {
         var _this = this;
         this.httpClient = httpClient;
-        this.getAgencies = function () {
-            return _this.httpClient
-                .get("../../assets/launchagencies.json")
-                .pipe(operators_1.map(function (res) { return res.agencies; }));
+        // https://programandoointentandolo.com/2017/07/estructuras-condicionales-java.html
+        // Operador terniario
+        this.getLaunches$ = function () {
+            var launches = localStorage.getItem('launches');
+            if (launches) {
+                return rxjs_1.of(JSON.parse(launches));
+            }
+            else {
+                return _this.httpClient.get('../../assets/launchlibrary.json')
+                    .pipe(operators_1.map(function (res) { return res.launches.map(function (launch) { return ({
+                    id: launch.id,
+                    name: launch.name,
+                    agencie: launch.rocket.agencies ? launch.rocket.agencies.length > 0 ? launch.rocket.agencies[0].id : 0 : 0,
+                    status: launch.status,
+                    typeMission: launch.missions.length > 0 ? launch.missions[0].type : 0,
+                }); }); }), operators_1.tap(function (launches) { return localStorage.setItem('launches', JSON.stringify(launches)); }));
+            }
         };
-        this.getTypesStatus = function () {
-            return _this.httpClient
-                .get("../../assets/launchstatus.json")
-                .pipe(operators_1.map(function (res) { return res.types; }));
+        this.getAgencies$ = function () {
+            return _this.httpClient.get('../../assets/launchagencies.json')
+                .pipe(operators_1.map(function (res) { return res.agencies.map(function (agencie) { return ({
+                id: agencie.id,
+                name: agencie.name
+            }); }); }));
         };
-        this.getTypesMissions = function () {
-            return _this.httpClient
-                .get("../../assets/launchmissions.json")
-                .pipe(operators_1.map(function (res) { return res.types; }));
+        this.getTypesMissions$ = function () {
+            return _this.httpClient.get('../../assets/launchmissions.json')
+                .pipe(operators_1.map(function (res) { return res.types.map(function (typeMission) { return ({
+                id: typeMission.id,
+                name: typeMission.name
+            }); }); }));
         };
-        this.getLaunches = function (criteria, id) {
-            return _this.httpClient
-                .get("../../assets/launchlibrary.json")
-                .pipe(operators_1.map(function (res) { return res.launches.filter(function (launch) {
-                var valido = false;
-                switch (criteria) {
-                    case 'Agencia':
-                        if (launch.rocket.agencies) {
-                            if (launch.rocket.agencies.length > 0) {
-                                valido = launch.rocket.agencies[0].id == id;
-                            }
-                        }
-                        break;
-                    case 'Estado':
-                        valido = launch.status == id;
-                        break;
-                    case 'Tipo':
-                        if (launch.missions.length > 0) {
-                            valido = launch.missions[0].type == id;
-                        }
-                        break;
-                }
-                return valido;
-            }); }));
+        this.getTypesStatus$ = function () {
+            return _this.httpClient.get('../../assets/launchstatus.json')
+                .pipe(operators_1.map(function (res) { return res.types.map(function (typeStatus) { return ({
+                id: typeStatus.id,
+                name: typeStatus.description
+            }); }); }));
         };
     }
+    ApiService.ngInjectableDef = i0.defineInjectable({ factory: function ApiService_Factory() { return new ApiService(i0.inject(i1.HttpClient)); }, token: ApiService, providedIn: "root" });
     return ApiService;
 }());
 exports.ApiService = ApiService;
+
+
+/***/ }),
+
+/***/ "./src/app/services/models.ts":
+/*!************************************!*\
+  !*** ./src/app/services/models.ts ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var eCriteria;
+(function (eCriteria) {
+    eCriteria[eCriteria["Estado"] = 0] = "Estado";
+    eCriteria[eCriteria["Agencia"] = 1] = "Agencia";
+    eCriteria[eCriteria["Tipo"] = 2] = "Tipo";
+})(eCriteria = exports.eCriteria || (exports.eCriteria = {}));
 
 
 /***/ }),
@@ -523,7 +566,7 @@ exports.ApiService = ApiService;
  * tslint:disable
  */ 
 Object.defineProperty(exports, "__esModule", { value: true });
-var styles = ["[app-counter][_ngcontent-%COMP%] {\n  text-align: center;\n  padding-top: 12px;\n}"];
+var styles = ["[app-counter][_ngcontent-%COMP%] {\r\n  text-align: center;\r\n  padding-top: 12px;\r\n}"];
 exports.styles = styles;
 
 
@@ -547,15 +590,16 @@ exports.styles = styles;
 Object.defineProperty(exports, "__esModule", { value: true });
 var i0 = __webpack_require__(/*! ./results-counter.component.css.shim.ngstyle */ "./src/app/shared/results-counter/results-counter.component.css.shim.ngstyle.js");
 var i1 = __webpack_require__(/*! @angular/core */ "@angular/core");
-var i2 = __webpack_require__(/*! ./results-counter.component */ "./src/app/shared/results-counter/results-counter.component.ts");
+var i2 = __webpack_require__(/*! @angular/common */ "@angular/common");
+var i3 = __webpack_require__(/*! ./results-counter.component */ "./src/app/shared/results-counter/results-counter.component.ts");
 var styles_ResultsCounterComponent = [i0.styles];
 var RenderType_ResultsCounterComponent = i1.ɵcrt({ encapsulation: 0, styles: styles_ResultsCounterComponent, data: {} });
 exports.RenderType_ResultsCounterComponent = RenderType_ResultsCounterComponent;
-function View_ResultsCounterComponent_0(_l) { return i1.ɵvid(2, [(_l()(), i1.ɵeld(0, 0, null, null, 1, "h2", [["app-counter", ""]], null, null, null, null, null)), (_l()(), i1.ɵted(1, null, ["N\u00FAmero de lanzamientos: ", ""]))], null, function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.dameNumLanzamientos(); _ck(_v, 1, 0, currVal_0); }); }
+function View_ResultsCounterComponent_0(_l) { return i1.ɵvid(2, [i1.ɵpid(0, i2.DecimalPipe, [i1.LOCALE_ID]), (_l()(), i1.ɵeld(1, 0, null, null, 2, "h2", [["app-counter", ""]], null, null, null, null, null)), (_l()(), i1.ɵted(2, null, ["N\u00FAmero de lanzamientos: ", ""])), i1.ɵppd(3, 1)], null, function (_ck, _v) { var _co = _v.component; var currVal_0 = i1.ɵunv(_v, 2, 0, _ck(_v, 3, 0, i1.ɵnov(_v, 0), _co.dameNumLanzamientos())); _ck(_v, 2, 0, currVal_0); }); }
 exports.View_ResultsCounterComponent_0 = View_ResultsCounterComponent_0;
-function View_ResultsCounterComponent_Host_0(_l) { return i1.ɵvid(0, [(_l()(), i1.ɵeld(0, 0, null, null, 1, "app-results-counter", [], null, null, null, View_ResultsCounterComponent_0, RenderType_ResultsCounterComponent)), i1.ɵdid(1, 114688, null, 0, i2.ResultsCounterComponent, [], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
+function View_ResultsCounterComponent_Host_0(_l) { return i1.ɵvid(0, [(_l()(), i1.ɵeld(0, 0, null, null, 1, "app-results-counter", [], null, null, null, View_ResultsCounterComponent_0, RenderType_ResultsCounterComponent)), i1.ɵdid(1, 114688, null, 0, i3.ResultsCounterComponent, [], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
 exports.View_ResultsCounterComponent_Host_0 = View_ResultsCounterComponent_Host_0;
-var ResultsCounterComponentNgFactory = i1.ɵccf("app-results-counter", i2.ResultsCounterComponent, View_ResultsCounterComponent_Host_0, { data: "data" }, {}, []);
+var ResultsCounterComponentNgFactory = i1.ɵccf("app-results-counter", i3.ResultsCounterComponent, View_ResultsCounterComponent_Host_0, { data: "data" }, {}, []);
 exports.ResultsCounterComponentNgFactory = ResultsCounterComponentNgFactory;
 
 
@@ -610,7 +654,7 @@ exports.ResultsCounterComponent = ResultsCounterComponent;
  * tslint:disable
  */ 
 Object.defineProperty(exports, "__esModule", { value: true });
-var styles = ["[app-criterio][_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n}\n\nselect[_ngcontent-%COMP%] {\n  margin-left: 10px;\n}"];
+var styles = ["[app-criterio][_ngcontent-%COMP%] {\r\n  display: flex;\r\n  flex-direction: row;\r\n  align-items: center;\r\n}\r\n\r\nselect[_ngcontent-%COMP%] {\r\n  margin-left: 10px;\r\n}"];
 exports.styles = styles;
 
 
@@ -641,7 +685,7 @@ exports.RenderType_SearchCriteriaComponent = RenderType_SearchCriteriaComponent;
 function View_SearchCriteriaComponent_0(_l) { return i1.ɵvid(2, [(_l()(), i1.ɵeld(0, 0, null, null, 10, "div", [["app-criterio", ""]], null, null, null, null, null)), (_l()(), i1.ɵeld(1, 0, null, null, 1, "h3", [], null, null, null, null, null)), (_l()(), i1.ɵted(-1, null, ["Seleccione el criterio de b\u00FAsqueda:"])), (_l()(), i1.ɵeld(3, 0, null, null, 7, "select", [], null, [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
         var pd_0 = (_co.onChange($event) !== false);
         ad = (pd_0 && ad);
-    } return ad; }, null, null)), (_l()(), i1.ɵeld(4, 0, null, null, 0, "option", [["value", ""]], null, null, null, null, null)), (_l()(), i1.ɵeld(5, 0, null, null, 1, "option", [["value", "Estado"]], null, null, null, null, null)), (_l()(), i1.ɵted(-1, null, ["Estado del lanzamiento"])), (_l()(), i1.ɵeld(7, 0, null, null, 1, "option", [["value", "Agencia"]], null, null, null, null, null)), (_l()(), i1.ɵted(-1, null, ["Agencia responsable"])), (_l()(), i1.ɵeld(9, 0, null, null, 1, "option", [["value", "Tipo"]], null, null, null, null, null)), (_l()(), i1.ɵted(-1, null, ["Tipo de misi\u00F3n"]))], null, null); }
+    } return ad; }, null, null)), (_l()(), i1.ɵeld(4, 0, null, null, 0, "option", [["value", ""]], null, null, null, null, null)), (_l()(), i1.ɵeld(5, 0, null, null, 1, "option", [["value", "0"]], null, null, null, null, null)), (_l()(), i1.ɵted(-1, null, ["Estado del lanzamiento"])), (_l()(), i1.ɵeld(7, 0, null, null, 1, "option", [["value", "1"]], null, null, null, null, null)), (_l()(), i1.ɵted(-1, null, ["Agencia responsable"])), (_l()(), i1.ɵeld(9, 0, null, null, 1, "option", [["value", "2"]], null, null, null, null, null)), (_l()(), i1.ɵted(-1, null, ["Tipo de misi\u00F3n"]))], null, null); }
 exports.View_SearchCriteriaComponent_0 = View_SearchCriteriaComponent_0;
 function View_SearchCriteriaComponent_Host_0(_l) { return i1.ɵvid(0, [(_l()(), i1.ɵeld(0, 0, null, null, 1, "app-search-criteria", [], null, null, null, View_SearchCriteriaComponent_0, RenderType_SearchCriteriaComponent)), i1.ɵdid(1, 114688, null, 0, i2.SearchCriteriaComponent, [], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
 exports.View_SearchCriteriaComponent_Host_0 = View_SearchCriteriaComponent_Host_0;
@@ -668,7 +712,7 @@ var SearchCriteriaComponent = /** @class */ (function () {
         this.criteria = new core_1.EventEmitter();
         this.onChange = function (event) {
             console.log('onChange - criteria');
-            _this.criteria.next(event.srcElement.value);
+            _this.criteria.next(+event.srcElement.value);
         };
     }
     SearchCriteriaComponent.prototype.ngOnInit = function () {
@@ -696,7 +740,7 @@ exports.SearchCriteriaComponent = SearchCriteriaComponent;
  * tslint:disable
  */ 
 Object.defineProperty(exports, "__esModule", { value: true });
-var styles = ["[app-valores][_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n}\n\nselect[_ngcontent-%COMP%] {\n  margin-left: 10px\n}"];
+var styles = ["[app-valores][_ngcontent-%COMP%] {\r\n  display: flex;\r\n  flex-direction: row;\r\n  align-items: center;\r\n}\r\n\r\nselect[_ngcontent-%COMP%] {\r\n  margin-left: 10px\r\n}"];
 exports.styles = styles;
 
 
@@ -832,7 +876,7 @@ exports.LAZY_MODULE_MAP = {};
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\Codigo HTML\Curso Angular\ssr-universal-gs-RAY\src\main.server.ts */"./src/main.server.ts");
+module.exports = __webpack_require__(/*! G:\Curso Avanzado\ssr-universal-gs-RAY\src\main.server.ts */"./src/main.server.ts");
 
 
 /***/ }),
@@ -944,6 +988,17 @@ module.exports = require("@angular/platform-server");
 /***/ (function(module, exports) {
 
 module.exports = require("@nguniversal/module-map-ngfactory-loader");
+
+/***/ }),
+
+/***/ "rxjs":
+/*!***********************!*\
+  !*** external "rxjs" ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("rxjs");
 
 /***/ }),
 
