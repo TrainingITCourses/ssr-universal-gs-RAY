@@ -18,7 +18,11 @@ export class SearchComponent implements OnInit {
 
   constructor(private api: ApiService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.api
+      .getLaunches$()
+      .subscribe((res: any[]) => this._data = []);
+  }
 
   onChangeCriteria = (criteria: eCriteria) => {
     console.log('onChangeCriteria: ' + criteria);

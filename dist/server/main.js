@@ -93,7 +93,7 @@
  * tslint:disable
  */ 
 Object.defineProperty(exports, "__esModule", { value: true });
-var styles = ["[_nghost-%COMP%] {\r\n    height: 100%;\r\n}"];
+var styles = ["[_nghost-%COMP%] {\n    height: 100%;\n}"];
 exports.styles = styles;
 
 
@@ -248,7 +248,7 @@ exports.AppServerModule = AppServerModule;
  * tslint:disable
  */ 
 Object.defineProperty(exports, "__esModule", { value: true });
-var styles = ["[app-cols][_ngcontent-%COMP%] {\r\n  width: 50%;\r\n  max-width: 50%;\r\n  min-width: 50%;\r\n  height: 24px;\r\n\r\n  white-space: nowrap;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n}\r\n\r\n[app-cols][_ngcontent-%COMP%]::before {\r\n  content: '* '\r\n}\r\n\r\n[app-container][_ngcontent-%COMP%] {\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  max-height: 100%;\r\n  overflow: auto;\r\n  padding: 0px 12px;\r\n}"];
+var styles = ["[app-cols][_ngcontent-%COMP%] {\n  width: 50%;\n  max-width: 50%;\n  min-width: 50%;\n  height: 24px;\n\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n\n[app-cols][_ngcontent-%COMP%]::before {\n  content: '* '\n}\n\n[app-container][_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  max-height: 100%;\n  overflow: auto;\n  padding: 0px 12px;\n}"];
 exports.styles = styles;
 
 
@@ -332,7 +332,7 @@ exports.LaunchesComponent = LaunchesComponent;
  * tslint:disable
  */ 
 Object.defineProperty(exports, "__esModule", { value: true });
-var styles = ["[app-todo][_ngcontent-%COMP%] {\r\n  height: 100%;\r\n  overflow: hidden;\r\n  background-color: #27c301bd;\r\n  color: #025f1b;\r\n}\r\n\r\n[app-cabecera][_ngcontent-%COMP%] {\r\n  height: 120px;\r\n  padding: 0px 12px;\r\n  box-shadow: 1px 6px 18px 0px #025f1b;\r\n}\r\n\r\n[app-lanzamientos][_ngcontent-%COMP%] {\r\n  height: calc(100% - 200px);\r\n  background-color: white;\r\n  color: #025f1b;\r\n  margin-top: 8px;\r\n  padding-top: 4px;\r\n  margin-bottom: -12px;\r\n}\r\n\r\n[app-pie][_ngcontent-%COMP%] {\r\n  height: 64px;\r\n  box-shadow: 0px -5px 18px 0px #025f1b;\r\n}\r\n\r\napp-results-counter[_ngcontent-%COMP%] {\r\n  align-content: center;\r\n}"];
+var styles = ["[app-todo][_ngcontent-%COMP%] {\n  height: 100%;\n  overflow: hidden;\n  background-color: #27c301bd;\n  color: #025f1b;\n}\n\n[app-cabecera][_ngcontent-%COMP%] {\n  height: 120px;\n  padding: 0px 12px;\n  box-shadow: 1px 6px 18px 0px #025f1b;\n}\n\n[app-lanzamientos][_ngcontent-%COMP%] {\n  height: calc(100% - 200px);\n  background-color: white;\n  color: #025f1b;\n  margin-top: 8px;\n  padding-top: 4px;\n  margin-bottom: -12px;\n}\n\n[app-pie][_ngcontent-%COMP%] {\n  height: 64px;\n  box-shadow: 0px -5px 18px 0px #025f1b;\n}\n\napp-results-counter[_ngcontent-%COMP%] {\n  align-content: center;\n}"];
 exports.styles = styles;
 
 
@@ -455,7 +455,12 @@ var SearchComponent = /** @class */ (function () {
             });
         };
     }
-    SearchComponent.prototype.ngOnInit = function () { };
+    SearchComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.api
+            .getLaunches$()
+            .subscribe(function (res) { return _this._data = []; });
+    };
     return SearchComponent;
 }());
 exports.SearchComponent = SearchComponent;
@@ -566,7 +571,7 @@ var eCriteria;
  * tslint:disable
  */ 
 Object.defineProperty(exports, "__esModule", { value: true });
-var styles = ["[app-counter][_ngcontent-%COMP%] {\r\n  text-align: center;\r\n  padding-top: 12px;\r\n}"];
+var styles = ["[app-counter][_ngcontent-%COMP%] {\n  text-align: center;\n  padding-top: 12px;\n}"];
 exports.styles = styles;
 
 
@@ -654,7 +659,7 @@ exports.ResultsCounterComponent = ResultsCounterComponent;
  * tslint:disable
  */ 
 Object.defineProperty(exports, "__esModule", { value: true });
-var styles = ["[app-criterio][_ngcontent-%COMP%] {\r\n  display: flex;\r\n  flex-direction: row;\r\n  align-items: center;\r\n}\r\n\r\nselect[_ngcontent-%COMP%] {\r\n  margin-left: 10px;\r\n}"];
+var styles = ["[app-criterio][_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n}\n\nselect[_ngcontent-%COMP%] {\n  margin-left: 10px;\n}"];
 exports.styles = styles;
 
 
@@ -740,7 +745,7 @@ exports.SearchCriteriaComponent = SearchCriteriaComponent;
  * tslint:disable
  */ 
 Object.defineProperty(exports, "__esModule", { value: true });
-var styles = ["[app-valores][_ngcontent-%COMP%] {\r\n  display: flex;\r\n  flex-direction: row;\r\n  align-items: center;\r\n}\r\n\r\nselect[_ngcontent-%COMP%] {\r\n  margin-left: 10px\r\n}"];
+var styles = ["[app-valores][_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n}\n\nselect[_ngcontent-%COMP%] {\n  margin-left: 10px\n}"];
 exports.styles = styles;
 
 
@@ -769,12 +774,13 @@ var i3 = __webpack_require__(/*! ./search-values.component */ "./src/app/shared/
 var styles_SearchValuesComponent = [i0.styles];
 var RenderType_SearchValuesComponent = i1.ɵcrt({ encapsulation: 0, styles: styles_SearchValuesComponent, data: {} });
 exports.RenderType_SearchValuesComponent = RenderType_SearchValuesComponent;
-function View_SearchValuesComponent_2(_l) { return i1.ɵvid(0, [(_l()(), i1.ɵeld(0, 0, null, null, 1, "option", [], [[8, "value", 0]], null, null, null, null)), (_l()(), i1.ɵted(1, null, ["", ""]))], null, function (_ck, _v) { var currVal_0 = _v.context.$implicit.id; _ck(_v, 0, 0, currVal_0); var currVal_1 = _v.context.$implicit.name; _ck(_v, 1, 0, currVal_1); }); }
-function View_SearchValuesComponent_1(_l) { return i1.ɵvid(0, [(_l()(), i1.ɵeld(0, 0, null, null, 6, "div", [["app-valores", ""]], null, null, null, null, null)), (_l()(), i1.ɵeld(1, 0, null, null, 1, "h4", [], null, null, null, null, null)), (_l()(), i1.ɵted(-1, null, ["Ahora seleccione el valor:"])), (_l()(), i1.ɵeld(3, 0, null, null, 3, "select", [], null, [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
+function View_SearchValuesComponent_1(_l) { return i1.ɵvid(0, [(_l()(), i1.ɵeld(0, 0, null, null, 1, "h4", [], null, null, null, null, null)), (_l()(), i1.ɵted(-1, null, ["Cargando valores... Por favor espere..."]))], null, null); }
+function View_SearchValuesComponent_3(_l) { return i1.ɵvid(0, [(_l()(), i1.ɵeld(0, 0, null, null, 1, "option", [], [[8, "value", 0]], null, null, null, null)), (_l()(), i1.ɵted(1, null, ["", ""]))], null, function (_ck, _v) { var currVal_0 = _v.context.$implicit.id; _ck(_v, 0, 0, currVal_0); var currVal_1 = _v.context.$implicit.name; _ck(_v, 1, 0, currVal_1); }); }
+function View_SearchValuesComponent_2(_l) { return i1.ɵvid(0, [(_l()(), i1.ɵeld(0, 0, null, null, 6, "div", [["app-valores", ""]], null, null, null, null, null)), (_l()(), i1.ɵeld(1, 0, null, null, 1, "h4", [], null, null, null, null, null)), (_l()(), i1.ɵted(-1, null, ["Ahora seleccione el valor:"])), (_l()(), i1.ɵeld(3, 0, null, null, 3, "select", [], null, [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
         var pd_0 = (_co.onChange($event) !== false);
         ad = (pd_0 && ad);
-    } return ad; }, null, null)), (_l()(), i1.ɵeld(4, 0, null, null, 0, "option", [["value", ""]], null, null, null, null, null)), (_l()(), i1.ɵand(16777216, null, null, 1, null, View_SearchValuesComponent_2)), i1.ɵdid(6, 278528, null, 0, i2.NgForOf, [i1.ViewContainerRef, i1.TemplateRef, i1.IterableDiffers], { ngForOf: [0, "ngForOf"] }, null)], function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.dameData(); _ck(_v, 6, 0, currVal_0); }, null); }
-function View_SearchValuesComponent_0(_l) { return i1.ɵvid(2, [(_l()(), i1.ɵand(16777216, null, null, 1, null, View_SearchValuesComponent_1)), i1.ɵdid(1, 16384, null, 0, i2.NgIf, [i1.ViewContainerRef, i1.TemplateRef], { ngIf: [0, "ngIf"] }, null)], function (_ck, _v) { var _co = _v.component; var currVal_0 = (((_co.data == null) ? null : _co.data.length) > 0); _ck(_v, 1, 0, currVal_0); }, null); }
+    } return ad; }, null, null)), (_l()(), i1.ɵeld(4, 0, null, null, 0, "option", [["value", ""]], null, null, null, null, null)), (_l()(), i1.ɵand(16777216, null, null, 1, null, View_SearchValuesComponent_3)), i1.ɵdid(6, 278528, null, 0, i2.NgForOf, [i1.ViewContainerRef, i1.TemplateRef, i1.IterableDiffers], { ngForOf: [0, "ngForOf"] }, null)], function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.dameData(); _ck(_v, 6, 0, currVal_0); }, null); }
+function View_SearchValuesComponent_0(_l) { return i1.ɵvid(2, [(_l()(), i1.ɵand(16777216, null, null, 1, null, View_SearchValuesComponent_1)), i1.ɵdid(1, 16384, null, 0, i2.NgIf, [i1.ViewContainerRef, i1.TemplateRef], { ngIf: [0, "ngIf"] }, null), (_l()(), i1.ɵand(16777216, null, null, 1, null, View_SearchValuesComponent_2)), i1.ɵdid(3, 16384, null, 0, i2.NgIf, [i1.ViewContainerRef, i1.TemplateRef], { ngIf: [0, "ngIf"] }, null)], function (_ck, _v) { var _co = _v.component; var currVal_0 = !_co.data; _ck(_v, 1, 0, currVal_0); var currVal_1 = (((_co.data == null) ? null : _co.data.length) > 0); _ck(_v, 3, 0, currVal_1); }, null); }
 exports.View_SearchValuesComponent_0 = View_SearchValuesComponent_0;
 function View_SearchValuesComponent_Host_0(_l) { return i1.ɵvid(0, [(_l()(), i1.ɵeld(0, 0, null, null, 1, "app-search-values", [], null, null, null, View_SearchValuesComponent_0, RenderType_SearchValuesComponent)), i1.ɵdid(1, 114688, null, 0, i3.SearchValuesComponent, [], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
 exports.View_SearchValuesComponent_Host_0 = View_SearchValuesComponent_Host_0;
@@ -876,7 +882,7 @@ exports.LAZY_MODULE_MAP = {};
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! G:\Curso Avanzado\ssr-universal-gs-RAY\src\main.server.ts */"./src/main.server.ts");
+module.exports = __webpack_require__(/*! D:\Codigo HTML\Curso Angular\ssr-universal-gs-RAY\src\main.server.ts */"./src/main.server.ts");
 
 
 /***/ }),

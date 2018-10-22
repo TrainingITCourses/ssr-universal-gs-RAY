@@ -1,3 +1,4 @@
+<h4 *ngIf="!data">Cargando valores... Por favor espere...</h4>
 <div app-valores *ngIf="data?.length > 0">
   <h4>Ahora seleccione el valor:</h4>
   <select (change)="onChange($event)">
